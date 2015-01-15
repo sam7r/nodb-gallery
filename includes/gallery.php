@@ -19,7 +19,7 @@ class Gallery {
 	public $images = array(); // IMAGE ARRAY
 	public $countImages = 0; // TOTAL IMAGES
 	public $countDirs = 0; // DIRS COUNT
-	public $maxImages = 8; // IMAGES PER PAGE
+	public $limit = 8; // IMAGES PER PAGE
 	public $album = array(); // RE-INDEX IMAGE FILES IN ARRAY
 	public $ablumName; // NAME OF CURRENT ALBUM
 	public $albumUrl; // URL OF CURRENT ALBUM
@@ -31,7 +31,7 @@ class Gallery {
 	public $endImage; // SETS LAST IMAGE OF PAGE
 	public $selectedImages = array();
 	public $thumbDir; // DIR OF THUMBS
-	public $thumbPre; // PREFIX OF THUMBS
+	public $thumbPfx; // PREFIX OF THUMBS
 
 	function __construct($dir) {
 
@@ -53,7 +53,7 @@ class Gallery {
 		}
 
 		$this->thumbDir = $this->dir . 'thumbs/';
-		$this->thumbPre = 'thumb-';
+		$this->thumbPfx = 'thumb-';
 		$this->disallowed = array(".","..","/","_notes", ".DS_Store", "thumbs"); // ITEMS TO EXCLUDE
 
 		$this->validDirs();
@@ -64,7 +64,8 @@ class Gallery {
 	private function validDirs() {
 
 		$directories = new RecursiveIteratorIterator(new ParentIterator
-					   (new RecursiveDirectoryIterator($this->dir)),RecursiveIteratorIterator::SELF_FIRST);
+					   (new RecursiveDirectoryIterator($this->dir)),
+					   RecursiveIteratorIterator::SELF_FIRST);
 
 		foreach ($directories as $directory) {
 
@@ -89,7 +90,7 @@ class Gallery {
 
 
 	// GETS NUMBER OF IMAGES IN DIRECTORY AND INDEXES IN ARRAY
-	public function setAlbum(){
+	public function setAlbum() {
 
 		$this->images = scandir($this->dir);
 
@@ -97,7 +98,7 @@ class Gallery {
 
 			if (!in_array($image, $this->disallowed)) {
 
-				if(is_dir($this->dir . $image)) { // CHECKS TO SEE IF FILE IS DIRECTORY
+				if(is_dir($this->dir . $image)) {
 
 					array_unshift($this->album, $image);
 					$this->countDirs++;
@@ -105,7 +106,7 @@ class Gallery {
 
 				} else {
 
-					array_push($this->album, $image); // PUSH TO NEW ARRAY FOR FRESH INDEX
+					array_push($this->album, $image);
 					$this->countImages++;
 				}
 			}
@@ -116,7 +117,7 @@ class Gallery {
 	// COUNTS PAGES FOR PAGINATION
 	public function pageCount() {
 
-		$this->pages = ceil($this->countImages / $this->maxImages) - 1;
+		$this->pages = ceil($this->countImages / $this->limit) - 1;
 		return $this->pages;
 
 	}
@@ -142,9 +143,9 @@ class Gallery {
 	// START AND END IMAGE NUMBERS
 	private function setLimit() {
 
-		$this->startImage = $this->maxImages * $this->page;
+		$this->startImage = $this->limit * $this->page;
 
-		$this->endImage = $this->startImage + $this->maxImages;
+		$this->endImage = $this->startImage + $this->limit;
 
 	}
 
@@ -155,7 +156,6 @@ class Gallery {
 		$this->getPage();
 		$this->setLimit();
 
-		// LOOP TO GET IMAGES
 		for($i = $this->startImage; $i < $this->endImage; $i++) {
 			$image = $this->album[$i];
 
