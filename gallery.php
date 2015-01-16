@@ -1,21 +1,23 @@
 <?php
 
+
 include "includes/gallery.php"; // Gallery class
 
 
 
 
-//----------------------------------------
-// object setup
-//----------------------------------------
+//--------------------
 
-$dir = 'images/gallery/' // root of gallery dir
+// object setup
+
+//--------------------
+
+
+$dir = 'images/gallery/'
 
 $gallery = new Gallery($dir);
 
 $gallery->limit = 12; // (optional: default is 8)
-
-//	changes dir if album is selected
 
 if(isset($_GET['a'])) {
 
@@ -32,9 +34,11 @@ $pageCount = $gallery->pageCount();
 
 
 
-//----------------------------------------
+//--------------------
+
 // album folders and images
-//----------------------------------------
+
+//--------------------
 
 if(!isset($_GET['a']) || in_array($gallery->getAlbumName(), $gallery->directory)) {
 
@@ -73,5 +77,6 @@ if(!isset($_GET['a']) || in_array($gallery->getAlbumName(), $gallery->directory)
 	}
 
 }
+
 
 include "includes/gallery-pagination.php";

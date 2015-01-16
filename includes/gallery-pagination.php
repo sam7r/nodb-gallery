@@ -1,10 +1,14 @@
 <?php
 
-//----------------------------------------
-// buttons & pagination
-//----------------------------------------
 
-// back dir button
+
+
+//--------------------
+
+// buttons & pagination
+
+//--------------------
+
 
 function backDir() {
 
@@ -42,7 +46,8 @@ function backDir() {
 
 }
 
-// pagination numbers
+
+
 
 function pagiNum() {
 
@@ -84,7 +89,8 @@ function pagiNum() {
 
 }
 
-// back page button
+
+
 
 function backBtn() {
 
@@ -120,7 +126,8 @@ function backBtn() {
 
 }
 
-// next page button
+
+
 
 function nextBtn()
 
@@ -135,7 +142,7 @@ function nextBtn()
 				$nextBtn .= '&a=' . $_GET['a'];
 
 			}
-			
+
 		} else {
 
 			$nextBtn = '#';
