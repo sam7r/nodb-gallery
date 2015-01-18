@@ -46,7 +46,7 @@ class Gallery {
 	public $album = array();
 
 	// Name of current album
-	public $ablumName;
+	public $albumName;
 
 	// Used to get album name
 	public $albumUrl;
@@ -82,22 +82,7 @@ class Gallery {
 
 		$this->dir = $dir;
 
-		if(isset($_GET['p'])) { // PAGE HANDLER FALLBACK
-
-			$this->page = $_GET['p'];
-
-		} else {
-
-			$this->page = 0;
-		}
-
-		if(isset($_GET['a'])) {
-
-			$this->albumUrl = $_GET['a'];
-
-		}
-
-		$this->thumbDir = $this->dir; // . 'thumbs';
+		$this->thumbDir = $this->dir . 'thumbs/';
 
 		$this->thumbPfx = 's-';
 
@@ -152,9 +137,9 @@ class Gallery {
 
 		$c = count($name) - 1;
 
-		$this->ablumName = $name[$c];
+		$this->albumName = $name[$c];
 
-		return $this->ablumName;
+		return $this->albumName;
 
 	}
 
@@ -291,11 +276,9 @@ class Gallery {
 
 		for($i = $this->startImage; $i < $this->endImage; $i++) {
 
-			$image = $this->album[$i];
+			if(isset($this->album[$i])) {
 
-			if($image) {
-
-				array_push($this->selectedImages, $image);
+				array_push($this->selectedImages, $this->album[$i]);
 
 			}
 
@@ -309,3 +292,5 @@ class Gallery {
 
 
 }
+
+?>
