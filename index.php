@@ -9,29 +9,78 @@ include "inc/gallery-config.php";
 ?>
 
 <!DOCTYPE html>
+
 <head>
 
 <title>NoDb Gallery</title>
+<link rel="stylesheet" type="text/css" href="/css/style.css" />
 
 </head>
+
 <body>
 
-	<h1>NoDb Gallery</h1>
+	<section class="sec b1">
 
-	<?php
+		<div class="wrap">
 
-	// Loop for gallery
-	include "inc/gallery.php";
+			<h1>NoDb Gallery</h1>
+			
 
-	?>
+			<!-- Gallery -->
 
-	<a href="<?php echo backDir(); ?>">Back</a>
+			<main class="col-1 gallery">
 
-	<a href="<?php echo backBtn($gallery->page); ?>"><</a>
+				<?php include "inc/gallery.php"; ?>
 
-	<?php echo pagiNum($gallery->page, $gallery->pageCount()); ?>
+			</main>
 
-	<a href="<?php echo nextBtn($gallery->page, $gallery->pageCount()); ?>">></a>
+
+			<!-- Gallery nav -->
+
+			<div class="gallery-nav">
+
+				<?php if($gallery->albumName) { ?>
+
+				<div class="btn">
+
+					<a href="<?php echo backDir(); ?>">Back</a>
+
+				</div>
+
+				<?php } ?>
+
+				<div class="btn-nav">
+
+					<a href="<?php echo backBtn($gallery->page); ?>"><</a>
+
+				</div>
+
+				<div class="pagi">
+
+					<?php echo pagiNum($gallery->page, $gallery->pageCount()); ?>
+
+				</div>
+
+				<div class="btn-nav">
+
+					<a href="<?php echo nextBtn($gallery->page, $gallery->pageCount()); ?>">></a>
+
+				</div>
+
+			</div>
+
+
+
+
+		</div>
+
+	</section>
+
+
+	<footer>
+
+
+	</footer>
 
 
 </body>

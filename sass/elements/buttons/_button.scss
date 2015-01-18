@@ -1,0 +1,84 @@
+//--------------------------------------------------------------------//
+//--------------------------------------------------------------------//
+
+// *** BAD$ASS button mixins! for all styles and colours
+
+//* Date: Feb 11th 2014
+//* Version: 1.00
+
+//--------------------------------------------------------------------//
+//--------------------------------------------------------------------//
+
+// ** mixin format
+// ** @include button(button-name, #colour, border-radius, padding * 1, hover state:true, box-shadow state:true);
+
+//--------------------------------------------------------------------//
+//--------------------------------------------------------------------//
+
+//** current mixin list
+
+//** gradient-button
+//** gradient-reverse-button
+//** gradient3d-button
+//** gradient3d-reverse-button
+//** gradient-half-button
+
+//** flat-button
+//** flat3d-button
+//** flat-half-button
+//** flat-stroke-button
+
+//** gloss-half-button
+
+//--------------------------------------------------------------------//
+
+@import 'elements/buttons/button-settings';
+@import 'elements/buttons/button-mixins';
+
+@mixin button($button, $color, $radius, $pad, $stroke:false, $hover:true, $shade: true) {
+
+	@if $button == 'grad' {
+		@include gradient-button($color, $radius, $pad, $hover);
+	}
+
+    @if $button == 'gradR' {
+		@include gradient-reverse-button($color, $radius, $pad, $hover);
+	}
+
+    @if $button == 'grad3d' {
+		@include gradient3d-button($color, $radius, $pad, $hover, $shade);
+	}
+
+    @if $button == 'grad3R' {
+		@include gradient3d-reverse-button($color, $radius, $pad, $hover, $shade);
+	}
+
+    @if $button == 'grad' {
+		@include gradient-half-button($color, $radius, $pad, $hover);
+	}
+
+    @if $button == 'flat' {
+		@include flat-button($color, $radius, $pad, $hover);
+	}
+
+    @if $button == 'flat3d' {
+		@include flat3d-button($color, $radius, $pad, $hover);
+	}
+
+    @if $button == 'flatH' {
+		@include flat-half-button($color, $radius, $pad, $hover);
+	}
+
+    @if $button == 'flatS' {
+		@include flat-outline-button($color, $radius, $pad, $stroke, $hover);
+	}
+
+    @if $button == 'flatSR' {
+		@include flat-outline-rev-button($color, $radius, $pad, $stroke, $hover);
+	}
+
+    @if $button == 'glossH' {
+		@include gloss-half-button($color, $radius, $pad, $hover);
+	}
+
+}

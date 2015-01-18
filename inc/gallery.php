@@ -38,8 +38,11 @@ if(!isset($album) || in_array($gallery->getAlbumName(), $gallery->directory)) {
 
 			?>
 
+			<div class="col1-4">
 
-			<a href="<?php echo $albumLink; ?>" class="folder col1-4"><?php echo $albumName; ?></a>
+				<a href="<?php echo $albumLink; ?>" class="folder"><?php echo $albumName; ?></a>
+
+			</div>
 
 
 			<?php
@@ -63,13 +66,15 @@ if(!isset($album) || in_array($gallery->getAlbumName(), $gallery->directory)) {
 
 			?>
 
+			<div class="col1-4">
 
-			<a class="fancybox image col1-4" rel="group" href="<?php echo $imageLink; ?>">
+				<a class="fancybox image" rel="group" href="<?php echo $imageLink; ?>">
 
-				<img src="<?php echo $imageThumb; ?>" alt="Kent Valeting Services" />
+					<img src="<?php echo $imageThumb; ?>" alt="Kent Valeting Services" />
 
-			</a>
+				</a>
 
+			</div>
 
 			<?php
 

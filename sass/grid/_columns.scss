@@ -1,0 +1,99 @@
+
+
+$gutter: 1%;
+
+$fw-gutter: 24px;
+
+@include bp(l) {
+	$fw-gutter: 18px;
+}
+@include bp(s) {
+	$fw-gutter: 12px;
+}
+
+@mixin col{
+	@include display(inline-block);
+	padding-left: $gutter;
+	padding-right: $gutter;
+	padding-top: $fw-gutter;
+	padding-bottom: $fw-gutter;
+}
+
+[class^=col] {
+	@include col;
+}
+
+//-------
+
+.col-1 {
+	width: 100% - ($gutter * 2);
+}
+.col1-2 {
+	width: (100% / 2) - ($gutter * 2);
+}
+.col1-3 {
+	width: (100% / 3) - ($gutter * 2);
+}
+.col2-3 {
+	width: ((100% / 3) * 2) - ($gutter * 2);
+}
+.col1-4 {
+	width: ((100% / 4) * 1) - ($gutter * 2);
+}
+.col3-4 {
+	width: ((100% / 4) * 3) - ($gutter * 2);
+}
+.col1-5 {
+	width: ((100% / 5) * 1) - ($gutter * 2);
+}
+.col2-5 {
+	width: ((100% / 5) * 2) - ($gutter * 2);
+}
+.col3-5 {
+	width: ((100% / 5) * 3) - ($gutter * 2);
+}
+.col4-5 {
+	width: ((100% / 5) * 4) - ($gutter * 2);
+}
+
+// -- loop for resposive columns
+
+@each $id in $bp-id {
+
+	@include bp(#{$id}) {
+
+		.col-1#{$id} {
+			width: 100% - ($gutter * 2);
+		}
+		.col1-2#{$id} {
+			width: (100% / 2) - ($gutter * 2);
+		}
+		.col1-3#{$id} {
+			width: (100% / 3) - ($gutter * 2);
+			@include col;
+		}
+		.col2-3#{$id} {
+			width: ((100% / 3) * 2) - ($gutter * 2);
+		}
+		.col1-4#{$id} {
+			width: ((100% / 4) * 1) - ($gutter * 2);
+		}
+		.col3-4#{$id} {
+			width: ((100% / 4) * 3) - ($gutter * 2);
+		}
+		.col1-5#{$id} {
+			width: ((100% / 5) * 1) - ($gutter * 2);
+		}
+		.col2-5#{$id} {
+			width: ((100% / 5) * 2) - ($gutter * 2);
+		}
+		.col3-5#{$id} {
+			width: ((100% / 5) * 3) - ($gutter * 2);
+		}
+		.col4-5#{$id} {
+			width: ((100% / 5) * 4) - ($gutter * 2);
+		}
+
+	}
+
+}

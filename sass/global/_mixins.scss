@@ -1,0 +1,180 @@
+
+// ----- mixin variables
+$all-prefixes: webkit, moz, ms, o;
+$display-values: inline, block, inline-block, none;
+
+// ----- mixins
+@mixin centerBlock {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+@mixin opacity($opacity) {
+	opacity: $opacity;
+	$opacity-ie: $opacity * 100;
+	filter: alpha(opacity=$opacity-ie); //IE8
+}
+
+@mixin clearFix() {
+	&:before,
+	&:after {
+		content: "";
+		display: table;
+	}
+	&:after {
+		clear: both;
+	}
+}
+
+// positioning mixin
+
+// position absolute setting mixin
+@mixin pos-abs($top: auto, $right: auto, $bottom: auto, $left: auto) {
+	position: absolute;
+	top: $top;
+	right: $right;
+	bottom: $bottom;
+	left: $left;
+}
+
+// position relative setting mixin
+@mixin pos-rel($float: left) {
+	position: relative;
+	@if $float == 'left' {
+		float: left;
+	} @if $float == 'right' {
+		float: right;
+	} @else {
+		float: none;
+	}
+}
+
+@mixin pos-fix() {
+	position: fixed;
+}
+
+// full page background mixin for name and extension
+@mixin background-cover($image, $type) {
+	background:url('../images/#{$image}.#{$type}');
+	background-position: center top;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	background-repeat: no-repeat;
+	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/#{$image}.#{$type}', sizingMethod='scale');
+	-ms-filter: "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/#{$image}.#{$type}', sizingMethod='scale')";
+}
+
+@mixin icon($social, $x:0, $y:0, $hover:true) {
+	$i:$iconSize;
+    @each $social in $social {
+    background-image:url("../images/icons/#{$social}-icon.png");
+    background-position: ($x * 1px) ($y * 1px);
+    background-repeat:no-repeat;
+    @include display();
+    	@if $hover {
+        	&:hover {
+        		background-position: ($x) ($y - $i);
+			}
+		}
+		//.svg { background-image:url("../images/icons/#{$social}-icon.svg");
+		//}
+	}
+}
+
+// prefix mixin
+@mixin prefix-values($property, $value, $prefixes: $all-prefixes) {
+    @each $prefix in $prefixes {
+        -#{$prefix}-#{$property}: #{$value};
+    }
+    #{$property}: #{$value};
+}
+
+// transition mixin - linked with prefix mixin
+@mixin transition($property: all, $time: 0.3s, $timing: ease) {
+    $value: $property $time $timing;
+    @include prefix-values('transition', $value);
+}
+
+// box-shadow mixin - linked with prefix mixin
+@mixin box-shadow($top, $left, $blur, $color) {
+	$value: $top $left $blur $color;
+    @include prefix-values('box-shadow', $value);
+}
+
+// box-shadow:inset mixin - linked with prefix mixin
+@mixin box-shadow-inset($inset, $top, $left, $blur, $color) {
+	$value: $inset $left $blur $color;
+    @include prefix-values('box-shadow', $value);
+}
+
+// border radius mixin - linked with prefix mixin
+@mixin border-radius($radius: 4px, $side: all) {
+	@if $side == top {
+		$radius: $radius $radius 0 0;
+	}
+	@else if $side == top-left {
+		$radius: $radius 0 0 0;
+	}
+	@else if $side == top-right {
+		$radius: 0 $radius 0 0;
+	}
+	@else if $side == bottom {
+		$radius: 0 0 $radius $radius;
+	}
+	@else if $side == bottom-left {
+		$radius: 0 0 0 $radius;
+	}
+	@else if $side == bottom-right {
+		$radius: 0 0 $radius 0;
+	}
+	@else if $side == top-left-bottom-right {
+		$radius: $radius 0 $radius 0;
+	}
+	@else if $side == top-right-bottom-left {
+		$radius: 0 $radius 0 $radius;
+	}
+	@else if $side == left {
+		$radius: $radius 0 0 $radius;
+	}
+	@else if $side == right {
+		$radius: 0 $radius $radius 0;
+	} @else {
+		$radius: $radius;
+	}
+	$prefixes: webkit;
+	@include prefix-values('border-radius', $radius, $prefixes);
+}
+
+// display value mixin
+@mixin display-values($value: $display-values) {
+	@each $block in $value {
+		display: #{$block};
+	}
+}
+
+// display elements mixin - linked with 'display value' mixin
+// (if value: inline-block, vertical align)
+@mixin display($property: block, $vertical-align: top) {
+	$value: $property ;
+	@include display-values($property);
+	//@each $float in $floats {
+		@if $property == 'inline-block' {
+			zoom: 1; // ie6/7 fix
+			*display: inline; // ie6/7 fix
+			margin-right: -4px;
+		//*float: #{$float};
+		}
+	//}
+	@if $property == 'inline-block'
+		or $property == 'inline' {
+		vertical-align:#{$vertical-align}
+
+	} @else {
+	// DO NOTHING
+	//	vertical-align: top;
+	}
+
+}
