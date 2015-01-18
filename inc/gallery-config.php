@@ -62,21 +62,6 @@ $gallery->setAlbum();
 
 include "gallery-nav.php";
 
-// Back link from within folder directory
-
-$backDir = backDir($album);
-
-// Link to navigate back a page within album
-
-$backPage = backBtn($gallery->page, $album);
-
-// Prints pagination links as numbers
-
-$albumPagi = pagiNum($gallery->page, $gallery->pageCount(), $album);
-
-// Link for next page within album
-
-$nexttn = nextBtn($gallery->page, $gallery->pageCount(), $album);
 
 
 ?>

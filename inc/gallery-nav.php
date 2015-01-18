@@ -8,11 +8,11 @@
 //--------------------
 
 
-function backDir($album) {
+function backDir() {
 
-	if(isset($album)) {
+	if(isset($_GET['a'])) {
 
-		$back  = explode('/', urldecode($album));
+		$back  = explode('/', urldecode($_GET['a']));
 
 		$backCount = count($back) - 1;
 
@@ -47,7 +47,7 @@ function backDir($album) {
 
 
 
-function pagiNum($page, $pageCount, $album) {
+function pagiNum($page, $pageCount) {
 
 	if($pageCount >= 0) {
 
@@ -55,9 +55,9 @@ function pagiNum($page, $pageCount, $album) {
 
 			$pagiLink = $_SERVER['PHP_SELF'] . '?p=' . $i;
 
-			if(isset($album)) {
+			if(isset($_GET['a'])) {
 
-				$pagiLink .= '&a=' . $album;
+				$pagiLink .= '&a=' . $_GET['a'];
 
 			}
 
@@ -79,11 +79,12 @@ function pagiNum($page, $pageCount, $album) {
 
 			$link .= '>' . $i . '</a>';
 
-			$pagi[] = $link;
+			//$pagi[] =
+			echo $link;
+
+			//return $pagi;
 
 		}
-
-		return $pagi;
 
 	}
 
@@ -92,13 +93,13 @@ function pagiNum($page, $pageCount, $album) {
 
 
 
-function backBtn($page, $album) {
+function backBtn($page) {
 
 	if(isset($page) && $page >= 0){
 
 		if(($page - 1) >= 0) {
 
-			if(($page - 1) == 0 && !isset($album)) {
+			if(($page - 1) == 0 && !isset($_GET['a'])) {
 
 				$backBtn = $_SERVER['PHP_SELF'];
 
@@ -108,9 +109,9 @@ function backBtn($page, $album) {
 
 			}
 
-			if(isset($album)) {
+			if(isset($_GET['a'])) {
 
-				$backBtn .= '&a=' . $album;
+				$backBtn .= '&a=' . $_GET['a'];
 
 			}
 
@@ -129,7 +130,7 @@ function backBtn($page, $album) {
 
 
 
-function nextBtn($page, $pageCount, $album) {
+function nextBtn($page, $pageCount) {
 	//$gallery->countImages > $gallery->maxImages
 	if($page <= $pageCount) {
 
@@ -137,9 +138,9 @@ function nextBtn($page, $pageCount, $album) {
 
 			$nextBtn = $_SERVER['PHP_SELF'] . "?p=" . ($page + 1);
 
-			if(isset($album)) {
+			if(isset($_GET['a'])) {
 
-				$nextBtn .= '&a=' . $album;
+				$nextBtn .= '&a=' . $_GET['a'];
 
 			}
 
