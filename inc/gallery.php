@@ -38,7 +38,7 @@ if(!isset($album) || in_array($gallery->getAlbumName(), $gallery->directory)) {
 
 			?>
 
-			<div class="col1-4">
+			<div class="col1-4 col1-3m col1-2s">
 
 				<a href="<?php echo $albumLink; ?>" class="folder"><?php echo $albumName; ?></a>
 
@@ -66,7 +66,7 @@ if(!isset($album) || in_array($gallery->getAlbumName(), $gallery->directory)) {
 
 			?>
 
-			<div class="col1-4">
+			<div class="col1-4 col1-3m col1-2s">
 
 				<a class="fancybox image" rel="group" href="<?php echo $imageLink; ?>">
 

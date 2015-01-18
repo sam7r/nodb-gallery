@@ -703,24 +703,27 @@ h3, .h3 {
   margin-left: 20px; }
 
 .gallery [class^=col] {
-  overflow: hidden; }
+  overflow: hidden;
+  padding-bottom: 0; }
 .gallery img {
   display: block;
   width: 100%; }
 
 .gallery-nav {
-  display: inline-block;
-  zoom: 1;
-  *display: inline;
-  margin-right: -4px;
-  vertical-align: top;
-  width: 100%; }
-  .gallery-nav > div:nth-child(1) {
-    float: left; }
-  .gallery-nav > div:nth-child(2) {
-    text-align: center; }
-  .gallery-nav > div:nth-child(3) {
-    float: right; }
+  display: block;
+  width: 100%;
+  text-align: center; }
+  .gallery-nav > div {
+    display: inline-block; }
+    .gallery-nav > div:nth-child(1) {
+      text-align: left; }
+    .gallery-nav > div:nth-child(2) {
+      text-align: center;
+      margin: 20px; }
+      .gallery-nav > div:nth-child(2) a {
+        padding: 0 8px; }
+    .gallery-nav > div:nth-child(3) {
+      text-align: right; }
 
 .slicknav_menu {
   display: none; }

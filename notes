@@ -1,0 +1,7 @@
+NoDb Gallery notes
+
+* Wishlist
+** Create directory navigation for gallery.
+** Option to display folders within gallery or in navigation.
+** Add buttons to Gallery class.
+** Remove procedural code from setup html and incorporate into config

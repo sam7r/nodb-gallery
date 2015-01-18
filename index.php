@@ -12,8 +12,11 @@ include "inc/gallery-config.php";
 
 <head>
 
-<title>NoDb Gallery</title>
-<link rel="stylesheet" type="text/css" href="/css/style.css" />
+	<title>NoDb Gallery</title>
+
+	<link href='http://fonts.googleapis.com/css?family=Roboto:400,100,500,700,900' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" type="text/css" href="/css/style.css" />
 
 </head>
 
@@ -24,7 +27,14 @@ include "inc/gallery-config.php";
 		<div class="wrap">
 
 			<h1>NoDb Gallery</h1>
-			
+
+
+			<div class="btn-nav back">
+
+				<a href="<?php echo backDir(); ?>" <?php if($gallery->getAlbumName()) { ?> disabled <?php } ?>>Back</a>
+
+			</div>
+
 
 			<!-- Gallery -->
 
@@ -38,16 +48,6 @@ include "inc/gallery-config.php";
 			<!-- Gallery nav -->
 
 			<div class="gallery-nav">
-
-				<?php if($gallery->albumName) { ?>
-
-				<div class="btn">
-
-					<a href="<?php echo backDir(); ?>">Back</a>
-
-				</div>
-
-				<?php } ?>
 
 				<div class="btn-nav">
 
@@ -77,7 +77,7 @@ include "inc/gallery-config.php";
 	</section>
 
 
-	<footer>
+	<footer class="sec foot">
 
 
 	</footer>
