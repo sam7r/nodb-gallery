@@ -22,23 +22,24 @@ include "inc/gallery-config.php";
 
 <body>
 
-	<section class="sec b1">
+	<header class="sec b3">
 
 		<div class="wrap">
 
 			<h1>NoDb Gallery</h1>
 
+		</div>
 
-			<div class="btn-nav back">
+	</header>
 
-				<a href="<?php echo backDir(); ?>" <?php if($gallery->getAlbumName()) { ?> disabled <?php } ?>>Back</a>
+	<section class="sec b1">
 
-			</div>
+		<div class="wrap">
 
 
 			<!-- Gallery -->
 
-			<main class="col-1 gallery">
+			<main class="col2-3 col-1m gallery">
 
 				<?php include "inc/gallery.php"; ?>
 
@@ -47,7 +48,7 @@ include "inc/gallery-config.php";
 
 			<!-- Gallery nav -->
 
-			<div class="gallery-nav">
+			<div class="col1-3 col-1m gallery-nav">
 
 				<div class="btn-nav">
 
@@ -55,11 +56,11 @@ include "inc/gallery-config.php";
 
 				</div>
 
-				<div class="pagi">
+				<!--<div class="pagi">
 
 					<?php echo pagiNum($gallery->page, $gallery->pageCount()); ?>
 
-				</div>
+				</div>-->
 
 				<div class="btn-nav">
 
@@ -67,9 +68,26 @@ include "inc/gallery-config.php";
 
 				</div>
 
+				<?php if(isset($_GET['a'])) : ?>
+
+				<div class="btn-nav back">
+
+					<a href="<?php echo backDir(); ?>" <?php if($gallery->getAlbumName()) { ?> disabled <?php } ?>>Back</a>
+
+				</div>
+
+				<?php endif; ?>
+
 			</div>
 
+			<?php
+			foreach($gallery->getFolders() as $folder) {
 
+				echo $folder;
+				echo '<br/>';
+
+			}
+			?>
 
 
 		</div>
@@ -77,7 +95,7 @@ include "inc/gallery-config.php";
 	</section>
 
 
-	<footer class="sec foot">
+	<footer class="sec foot b3">
 
 
 	</footer>

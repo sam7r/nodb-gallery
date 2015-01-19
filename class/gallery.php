@@ -33,6 +33,9 @@ class Gallery {
 	// Directory of gallery/album
 	public $dir;
 
+	// Unchanging root
+	protected $root;
+
 	// Total count of images (includes folders)
 	public $countImages = 0;
 
@@ -82,6 +85,8 @@ class Gallery {
 
 		$this->dir = $dir;
 
+		$this->root = $dir;
+
 		$this->thumbDir = $this->dir . 'thumbs/';
 
 		$this->thumbPfx = 's-';
@@ -101,7 +106,6 @@ class Gallery {
 
 	//--------------------
 
-
 	private function validDirs() {
 
 		$directories = new RecursiveIteratorIterator(new ParentIterator
@@ -117,6 +121,41 @@ class Gallery {
 			array_push($this->directory, $dir[$dirName]);
 
 		}
+
+	}
+
+
+
+
+	//--------------------
+
+	// ** getFolders() **
+
+	// Lists all folders for sub directory navigation
+
+	//--------------------
+
+	public function getFolders() {
+
+		$directories =new RecursiveIteratorIterator(new ParentIterator
+		(new RecursiveDirectoryIterator($this->root)),
+		RecursiveIteratorIterator::SELF_FIRST);
+
+		$ignore = ($this->thumbDir);
+
+		$folders = array();
+
+		foreach ($directories as $directory) {
+
+			if(!in_array($this->root.$folders)) {
+
+				$folders[] = $directory;
+
+			}
+
+		}
+
+		return $folders;
 
 	}
 
@@ -153,7 +192,8 @@ class Gallery {
 	// This method takes each file/folder from the specified directory
 	// and re-indexes them into the array that will be served.
 
-	// The folders are shifted to begining of the array for easier navigation.
+	// The folders are sorted and shifted to begining of the array for
+	// easier navigation.
 
 	//--------------------
 
@@ -163,13 +203,15 @@ class Gallery {
 
 		$disallowed = array(".","..","/","_notes", ".DS_Store", "thumbs");
 
+		$folders = array();
+
 		foreach ($images as $image) {
 
 			if (!in_array($image, $disallowed)) {
 
-				if(is_dir($this->dir . $image)) {
+				if (is_dir($this->dir . $image)) {
 
-					array_unshift($this->album, $image);
+					$folders[] = $image;
 
 					$this->countDirs++;
 
@@ -182,6 +224,18 @@ class Gallery {
 					$this->countImages++;
 
 				}
+
+			}
+
+		}
+
+		if($folders) {
+
+			arsort($folders);
+
+			foreach($folders as $folder) {
+
+				array_unshift($this->album, $folder);
 
 			}
 

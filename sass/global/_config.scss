@@ -6,7 +6,7 @@
 $dir : "http://eliteheat.dns-systems.net/wp-content/themes/Elite%20Heat%20UK/images/";
 $responsive: true;
 
-$max-width: 1100px;
+$max-width: 960px;
 
 @if $responsive {
 	$wrapper: 80% !global;
@@ -39,7 +39,6 @@ $btn1c: #86bd34;
 	font: {
 		family: 'Roboto', sans-serif;
 		weight: 100;
-		size: 1.2em;
 	}
 	line-height: 30px;
 }
@@ -53,14 +52,14 @@ $btn1c: #86bd34;
 
 // ----- media query mixin with true false statement
 
-$bp-id: s, m, l, xl; // for column class loop
+$bp-id: xl, l, m, s; // for column class loop
 
 @mixin bp($point) {
 
 	@if ($responsive) {
-	  $bp-small: "(max-width: 420px)";
+	  $bp-small: "(max-width: 460px)";
 		$bp-medium: "(max-width: 720px)";
-		$bp-large: "(max-width: 900px)";
+		$bp-large: "(max-width: 960px)";
 		$bp-xlarge: "(max-width: 1300px)";
 
 	  @if $point == xl {

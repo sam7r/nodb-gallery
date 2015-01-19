@@ -13,7 +13,7 @@ $dir = 'images/folio/';
 
 $gallery = new Gallery($dir);
 
-$gallery->limit = 6; // (optional: default is 8)
+$gallery->limit = 8; // (optional: default is 8)
 
 
 //--------------------

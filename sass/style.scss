@@ -93,6 +93,9 @@ Author URI: http://www.sjroberton.co.uk
 }
 
 
+// Gallery Styles -------------------------------
+
+
 .gallery {
 	[class^=col] {
 		overflow: hidden;
@@ -105,11 +108,12 @@ Author URI: http://www.sjroberton.co.uk
 }
 
 .gallery-nav {
-	display: block;
-	width: 100%;
 	text-align: center;
+	padding-top: 45px;
 
 	> div {
+
+		margin: 0 10px 20px;
 
 		display: inline-block;
 
@@ -118,20 +122,22 @@ Author URI: http://www.sjroberton.co.uk
 		}
 
 		&:nth-child(2) {
-			text-align: center;
-			margin: 20px;
-			a {
-				padding: 0 8px;
-			}
-		}
-
-		&:nth-child(3) {
 			text-align: right;
 		}
+
 	}
 
 }
 
+.folder {
+	display: inline-block;
+	position: relative;
+	background: $s2c;
+	color: $p2c;
+	height: 100%;
+	width: 100%;
+	text-align: center;
+}
 
 
 
