@@ -1,159 +1,45 @@
-<?php
 
+<?php if($gallery->getFolders()) : ?>
 
-//--------------------
+	<div class="gallery-menu">
 
-// buttons & pagination
+		<ul>
+				<li><a href="<?php echo $_SERVER['PHP_SELF']; ?>">Gallery</a></li>
 
-//--------------------
+			<?php foreach($gallery->getFolders() as $name => $dir) : ?>
 
+				<li><a href="<?php echo $_SERVER['PHP_SELF'] . "?a=" . $dir; ?>"><?php echo $name; ?></a></li>
 
-function backDir() {
+			<?php endforeach; ?>
 
-	if(isset($_GET['a'])) {
+		</ul>
 
-		$back  = explode('/', urldecode($_GET['a']));
+	</div>
 
-		$backCount = count($back) - 1;
+<?php endif; ?>
 
-		$backLink = $_SERVER['PHP_SELF'];
 
-		if($backCount > 0) {
+<div class="btn-nav">
 
-			for($i = 0; $i < $backCount; $i++) {
+	<a href="<?php echo backBtn($gallery->page); ?>" <?php if($gallery->page == 0) { ?> class="disabled" <?php } ?>><</a>
 
-				if($i == ($backCount - 1)) {
+</div>
 
-					$link .= $back[$i];
+<!--<div class="pagi">
 
-				} else {
+<?php echo pagiNum($gallery->page, $gallery->pageCount()); ?>
 
-					$link .= $back[$i] .'/';
+</div>-->
 
-				}
+<div class="btn-nav">
 
-			}
+	<a href="<?php echo nextBtn($gallery->page, $gallery->pageCount()); ?>" <?php if($gallery->page == $gallery->pages) { ?> class="disabled" <?php } ?>>></a>
 
-			$backLink = '?a=' . urlencode($link);
+</div>
 
-		}
 
-		return $backLink;
+<div class="btn-nav back">
 
-	}
+	<a href="<?php echo backDir(); ?>" <?php if($gallery->isRoot()) { ?> class="disabled" <?php } ?>>Back</a>
 
-}
-
-
-
-
-function pagiNum($page, $pageCount) {
-
-	if($pageCount >= 0) {
-
-		for($i = 0; $i <= $pageCount; $i++) {
-
-			$pagiLink = $_SERVER['PHP_SELF'] . '?p=' . $i;
-
-			if(isset($_GET['a'])) {
-
-				$pagiLink .= '&a=' . $_GET['a'];
-
-			}
-
-			$pagiNum = ($i + 1);
-
-			$pagination[$pagiNum] = $pagiLink;
-		}
-
-
-		foreach($pagination as $i => $link) {
-
-			$link = '<a href="' . $link . '"';
-
-			if($page == ($i - 1)) {
-
-				$link .= 'class="selected"';
-
-			}
-
-			$link .= '>' . $i . '</a>';
-
-			//$pagi[] =
-			echo $link;
-
-			//return $pagi;
-
-		}
-
-	}
-
-}
-
-
-
-
-function backBtn($page) {
-
-	if(isset($page) && $page >= 0){
-
-		if(($page - 1) >= 0) {
-
-			if(($page - 1) == 0 && !isset($_GET['a'])) {
-
-				$backBtn = $_SERVER['PHP_SELF'];
-
-			} else {
-
-				$backBtn = $_SERVER['PHP_SELF'] . "?p=" . ($page - 1);
-
-			}
-
-			if(isset($_GET['a'])) {
-
-				$backBtn .= '&a=' . $_GET['a'];
-
-			}
-
-		} else {
-
-			$backBtn = '#';
-
-		}
-
-		return $backBtn;
-
-	}
-
-}
-
-
-
-
-function nextBtn($page, $pageCount) {
-	//$gallery->countImages > $gallery->maxImages
-	if($page <= $pageCount) {
-
-		if(($page + 1) <= $pageCount) {
-
-			$nextBtn = $_SERVER['PHP_SELF'] . "?p=" . ($page + 1);
-
-			if(isset($_GET['a'])) {
-
-				$nextBtn .= '&a=' . $_GET['a'];
-
-			}
-
-		} else {
-
-			$nextBtn = '#';
-
-		}
-
-		return $nextBtn;
-
-	}
-
-}
-
-?>
+</div>

@@ -1,11 +1,11 @@
 <?php
 
 
-if(!isset($album) || in_array($gallery->getAlbumName(), $gallery->directory)) {
+if(!isset($album) || in_array($gallery->getAlbumName($album), $gallery->directory)) {
 
 	if(isset($album)) {
 
-		$name = $gallery->getAlbumName();
+		$name = $gallery->getAlbumName($album);
 
 	}
 
@@ -53,7 +53,7 @@ if(!isset($album) || in_array($gallery->getAlbumName(), $gallery->directory)) {
 
 			$imageLink = $gallery->dir .''. $image;
 
-			$imageThumb = $gallery->thumbDir .''. $gallery->thumbPfx .''. $image;
+			$imageThumb = $gallery->thumbDir .'/'. $gallery->thumbPfx .''. $image;
 
 			//--------------------
 

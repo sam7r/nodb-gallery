@@ -78,6 +78,12 @@ class Gallery {
 	// Thumbnail prefix
 	public $thumbPfx;
 
+	// List of ignore directories
+	public $ignoredDirs;
+
+	// List of ignore files
+	public $ignoredFiles;
+
 
 
 
@@ -87,11 +93,39 @@ class Gallery {
 
 		$this->root = $dir;
 
-		$this->thumbDir = $this->dir . 'thumbs/';
+		$this->thumbDir = $this->dir . 'thumbs';
 
 		$this->thumbPfx = 's-';
 
 		$this->validDirs();
+
+		$this->ignoredDirs = [$this->thumbDir];
+
+		$this->ignoredFiles = array(".","..","/","_notes", ".DS_Store", "thumbs");
+
+	}
+
+
+
+
+	public function isRoot() {
+
+		if($this->dir == $this->root) {
+			return true;
+		}
+
+	}
+
+
+
+
+	private function scanDirs($dir) {
+
+		$directories = new RecursiveIteratorIterator(new ParentIterator
+		(new RecursiveDirectoryIterator($dir)),
+		RecursiveIteratorIterator::SELF_FIRST);
+
+		return $directories;
 
 	}
 
@@ -108,17 +142,13 @@ class Gallery {
 
 	private function validDirs() {
 
-		$directories = new RecursiveIteratorIterator(new ParentIterator
-					   (new RecursiveDirectoryIterator($this->dir)),
-					   RecursiveIteratorIterator::SELF_FIRST);
+		$directories = $this->scanDirs($this->dir);
 
 		foreach ($directories as $directory) {
 
-			$dir = explode('/', $directory);
+			$album = $this->getAlbumName($directory);
 
-			$dirName = count($dir) - 1;
-
-			array_push($this->directory, $dir[$dirName]);
+			array_push($this->directory, $album);
 
 		}
 
@@ -137,19 +167,21 @@ class Gallery {
 
 	public function getFolders() {
 
-		$directories =new RecursiveIteratorIterator(new ParentIterator
-		(new RecursiveDirectoryIterator($this->root)),
-		RecursiveIteratorIterator::SELF_FIRST);
-
-		$ignore = ($this->thumbDir);
+		$directories = $this->scanDirs($this->root);
 
 		$folders = array();
 
 		foreach ($directories as $directory) {
 
-			if(!in_array($this->root.$folders)) {
+			foreach($this->ignoredDirs as $ignore) {
 
-				$folders[] = $directory;
+				if($ignore != $directory) {
+
+					$album = $this->getAlbumName($directory);
+
+					$folders[$album] = urlencode($album);
+
+				}
 
 			}
 
@@ -170,15 +202,15 @@ class Gallery {
 
 	//--------------------
 
-	public function getAlbumName() {
+	public function getAlbumName($album) {
 
-		$name = explode('/', $this->albumUrl);
+		$name = explode('/', $album);
 
 		$c = count($name) - 1;
 
-		$this->albumName = $name[$c];
+		$album = $name[$c];
 
-		return $this->albumName;
+		return $album;
 
 	}
 
@@ -201,13 +233,11 @@ class Gallery {
 
 		$images = scandir($this->dir);
 
-		$disallowed = array(".","..","/","_notes", ".DS_Store", "thumbs");
-
 		$folders = array();
 
 		foreach ($images as $image) {
 
-			if (!in_array($image, $disallowed)) {
+			if (!in_array($image, $this->ignoredFiles)) {
 
 				if (is_dir($this->dir . $image)) {
 

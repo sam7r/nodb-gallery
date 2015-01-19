@@ -45,49 +45,14 @@ include "inc/gallery-config.php";
 
 			</main>
 
-
+			
 			<!-- Gallery nav -->
 
 			<div class="col1-3 col-1m gallery-nav">
 
-				<div class="btn-nav">
-
-					<a href="<?php echo backBtn($gallery->page); ?>"><</a>
-
-				</div>
-
-				<!--<div class="pagi">
-
-					<?php echo pagiNum($gallery->page, $gallery->pageCount()); ?>
-
-				</div>-->
-
-				<div class="btn-nav">
-
-					<a href="<?php echo nextBtn($gallery->page, $gallery->pageCount()); ?>">></a>
-
-				</div>
-
-				<?php if(isset($_GET['a'])) : ?>
-
-				<div class="btn-nav back">
-
-					<a href="<?php echo backDir(); ?>" <?php if($gallery->getAlbumName()) { ?> disabled <?php } ?>>Back</a>
-
-				</div>
-
-				<?php endif; ?>
+				<?php include "inc/gallery-nav.php"; ?>
 
 			</div>
-
-			<?php
-			foreach($gallery->getFolders() as $folder) {
-
-				echo $folder;
-				echo '<br/>';
-
-			}
-			?>
 
 
 		</div>

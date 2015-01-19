@@ -618,7 +618,8 @@ h3, .h3 {
   -moz-box-shadow: 5px 0px 10px #ccc;
   -ms-box-shadow: 5px 0px 10px #ccc;
   -o-box-shadow: 5px 0px 10px #ccc;
-  box-shadow: 5px 0px 10px #ccc; }
+  box-shadow: 5px 0px 10px #ccc;
+  margin: 0 10px 20px; }
   .btn-nav a {
     color: #fff;
     display: inline-block;
@@ -638,6 +639,10 @@ h3, .h3 {
     border-radius: 4px;
     background: #86bd34;
     border: 2px solid #86bd34; }
+  .btn-nav .disabled {
+    background: #f2f2f2;
+    border: 2px solid #f2f2f2;
+    color: #262626; }
 
 .btn-2 {
   position: relative;
@@ -710,14 +715,7 @@ h3, .h3 {
 
 .gallery-nav {
   text-align: center;
-  padding-top: 45px; }
-  .gallery-nav > div {
-    margin: 0 10px 20px;
-    display: inline-block; }
-    .gallery-nav > div:nth-child(1) {
-      text-align: left; }
-    .gallery-nav > div:nth-child(2) {
-      text-align: right; }
+  padding-top: 30px; }
 
 .folder {
   display: inline-block;
@@ -727,6 +725,39 @@ h3, .h3 {
   height: 100%;
   width: 100%;
   text-align: center; }
+
+.gallery-menu {
+  display: block;
+  background: #f2f2f2;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: 5px 0px 10px #ccc;
+  -moz-box-shadow: 5px 0px 10px #ccc;
+  -ms-box-shadow: 5px 0px 10px #ccc;
+  -o-box-shadow: 5px 0px 10px #ccc;
+  box-shadow: 5px 0px 10px #ccc;
+  overflow: hidden;
+  margin: 20px 0; }
+  .gallery-menu ul {
+    width: 100%;
+    padding: 0;
+    margin: 0; }
+    .gallery-menu ul li {
+      list-style-type: none; }
+      .gallery-menu ul li:nth-child(1n + 2) {
+        border-top: 1px solid #e6e6e6; }
+    .gallery-menu ul a {
+      display: block;
+      width: 100%;
+      height: 100%;
+      padding: 5px 0;
+      -webkit-transition: all 0.3s ease;
+      -moz-transition: all 0.3s ease;
+      -ms-transition: all 0.3s ease;
+      -o-transition: all 0.3s ease;
+      transition: all 0.3s ease; }
+      .gallery-menu ul a:hover {
+        background: #e6e6e6; }
 
 .slicknav_menu {
   display: none; }

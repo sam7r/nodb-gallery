@@ -60,7 +60,7 @@ $gallery->setAlbum();
 
 //--------------------
 
-include "gallery-nav.php";
+include "class/gallery-nav.php";
 
 
 
