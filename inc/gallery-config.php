@@ -13,7 +13,9 @@ $dir = 'images/folio/';
 
 $gallery = new Gallery($dir);
 
-$gallery->limit = 8; // (optional: default is 8)
+$gallery->limit = 8; // (default: 8)
+
+$gallery->showAlbums = true; // (default: true) show albums within gallery
 
 
 //--------------------
@@ -35,24 +37,26 @@ if(isset($_GET['p'])) {
 
 if(isset($_GET['a'])) {
 
+	// variable used throughout controller code
 	$album = $_GET['a'];
 
+	// Establishes correct directory
 	$gallery->dir = $gallery->dir . '' . urldecode($album) . '/';
-
-	$gallery->albumUrl = $album;
 
 }
 
 
 //--------------------
 
-// complete album setup
+// Builds array of images/dirs
 
 //--------------------
 
+//if($gallery->isValidDir()) {
 
-$gallery->setAlbum();
+	$gallery->setAlbum();
 
+//}
 
 //--------------------
 

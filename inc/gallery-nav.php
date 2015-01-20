@@ -8,7 +8,11 @@
 
 			<?php foreach($gallery->getFolders() as $name => $dir) : ?>
 
-				<li><a href="<?php echo $_SERVER['PHP_SELF'] . "?a=" . $dir; ?>"><?php echo $name; ?></a></li>
+				<li>
+					<a href="<?php echo $_SERVER['PHP_SELF'] . "?a=" . $dir; ?>">
+					<?php echo $name; ?>
+					</a>
+				</li>
 
 			<?php endforeach; ?>
 

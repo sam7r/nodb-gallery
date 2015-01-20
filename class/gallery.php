@@ -45,17 +45,17 @@ class Gallery {
 	// Limit of items shown per page
 	public $limit = 8;
 
+	// Show albums within array
+	public $showAlbums = true;
+
 	// Array combining images/folders
 	public $album = array();
 
 	// Name of current album
 	public $albumName;
 
-	// Used to get album name
-	public $albumUrl;
-
 	// Holds valid directories
-	public $directory = array();
+	public $validDirs = array();
 
 	// Total number of pages in album
 	public $pages;
@@ -64,25 +64,16 @@ class Gallery {
 	public $page;
 
 	// Starting item of album
-	public $startImage;
+	public $start;
 
 	// Last item of album
-	public $endImage;
-
-	// Sorted and counted array of images/folders
-	public $selectedImages = array();
+	public $end;
 
 	// Directory of thumbnail folder
 	public $thumbDir;
 
 	// Thumbnail prefix
 	public $thumbPfx;
-
-	// List of ignore directories
-	public $ignoredDirs;
-
-	// List of ignore files
-	public $ignoredFiles;
 
 
 
@@ -99,14 +90,18 @@ class Gallery {
 
 		$this->validDirs();
 
-		$this->ignoredDirs = [$this->thumbDir];
-
-		$this->ignoredFiles = array(".","..","/","_notes", ".DS_Store", "thumbs");
-
 	}
 
 
 
+
+	//--------------------
+
+	// ** isRoot() **
+
+	// Method to determine if user is in root folder
+
+	//--------------------
 
 	public function isRoot() {
 
@@ -118,6 +113,14 @@ class Gallery {
 
 
 
+
+	//--------------------
+
+	// ** scanDirs() **
+
+	// Recursively scans given directory and stores into returned array
+
+	//--------------------
 
 	private function scanDirs($dir) {
 
@@ -142,13 +145,38 @@ class Gallery {
 
 	private function validDirs() {
 
-		$directories = $this->scanDirs($this->dir);
+		$directories = $this->scanDirs($this->root);
 
 		foreach ($directories as $directory) {
 
-			$album = $this->getAlbumName($directory);
+			$directory = $directory . '/';
 
-			array_push($this->directory, $album);
+			array_push($this->validDirs, $directory);
+
+		}
+
+	}
+
+
+
+
+	//--------------------
+
+	// ** isValidDir() **
+
+	// Method to check if selected album is a valid directory
+
+	//--------------------
+
+	public function isValidDir() {
+
+		foreach($this->validDirs as $valid) {
+
+			if($this->dir == $valid) {
+
+				return true;
+
+			}
 
 		}
 
@@ -161,7 +189,7 @@ class Gallery {
 
 	// ** getFolders() **
 
-	// Lists all folders for sub directory navigation
+	// Returns array of folders for directory navigation
 
 	//--------------------
 
@@ -169,17 +197,21 @@ class Gallery {
 
 		$directories = $this->scanDirs($this->root);
 
+		$ignoredDirs = [$this->thumbDir];
+
 		$folders = array();
 
 		foreach ($directories as $directory) {
 
-			foreach($this->ignoredDirs as $ignore) {
+			foreach($ignoredDirs as $ignore) {
 
 				if($ignore != $directory) {
 
 					$album = $this->getAlbumName($directory);
 
-					$folders[$album] = urlencode($album);
+					$albumDir = str_replace($this->root, '', $directory);
+
+					$folders[$album] = urlencode($albumDir);
 
 				}
 
@@ -233,19 +265,25 @@ class Gallery {
 
 		$images = scandir($this->dir);
 
+		$ignoredFiles = array(".","..","/","_notes", ".DS_Store", "thumbs");
+
 		$folders = array();
 
 		foreach ($images as $image) {
 
-			if (!in_array($image, $this->ignoredFiles)) {
+			if (!in_array($image, $ignoredFiles)) {
 
 				if (is_dir($this->dir . $image)) {
 
-					$folders[] = $image;
+					if($this->showAlbums) {
 
-					$this->countDirs++;
+						$folders[] = $image;
 
-					$this->countImages++;
+						$this->countDirs++;
+
+						$this->countImages++;
+
+					}
 
 				} else {
 
@@ -334,9 +372,9 @@ class Gallery {
 
 	private function setLimit() {
 
-		$this->startImage = $this->limit * $this->page;
+		$this->start = $this->limit * $this->page;
 
-		$this->endImage = $this->startImage + $this->limit;
+		$this->end = $this->start + $this->limit;
 
 	}
 
@@ -358,17 +396,19 @@ class Gallery {
 
 		$this->setLimit();
 
-		for($i = $this->startImage; $i < $this->endImage; $i++) {
+		$array = array();
+
+		for($i = $this->start; $i < $this->end; $i++) {
 
 			if(isset($this->album[$i])) {
 
-				array_push($this->selectedImages, $this->album[$i]);
+				array_push($array, $this->album[$i]);
 
 			}
 
 		}
 
-		return $this->selectedImages;
+		return $array;
 
 	}
 

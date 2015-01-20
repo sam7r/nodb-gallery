@@ -23,11 +23,11 @@ function backDir() {
 
 				if($i == ($backCount - 1)) {
 
-					$link .= $back[$i];
+					$link = $back[$i];
 
 				} else {
 
-					$link .= $back[$i] .'/';
+					$link = $back[$i] .'/';
 
 				}
 

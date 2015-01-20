@@ -1,7 +1,7 @@
 <?php
 
 
-if(!isset($album) || in_array($gallery->getAlbumName($album), $gallery->directory)) {
+if(!isset($album) || $gallery->isValidDir()) {
 
 	if(isset($album)) {
 
