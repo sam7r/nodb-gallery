@@ -1,17 +1,37 @@
+<?php
 
-<?php if($gallery->getFolders()) : ?>
+//========================================
+
+// ** Gallery Navigation buttons **
+
+//========================================
+
+//--------------------
+
+// * getFolders() *
+
+// Returns a list of all folders in Gallery for navigation
+
+//--------------------
+
+if($gallery->getFolders()) : ?>
 
 	<div class="gallery-menu">
 
 		<ul>
-				<li><a href="<?php echo $_SERVER['PHP_SELF']; ?>">Gallery</a></li>
+
+			<li><a href="<?php echo $_SERVER['PHP_SELF']; ?>">Gallery</a></li>
 
 			<?php foreach($gallery->getFolders() as $name => $dir) : ?>
 
 				<li>
+
 					<a href="<?php echo $_SERVER['PHP_SELF'] . "?a=" . $dir; ?>">
+
 					<?php echo $name; ?>
+
 					</a>
+
 				</li>
 
 			<?php endforeach; ?>
@@ -20,8 +40,17 @@
 
 	</div>
 
-<?php endif; ?>
+<?php endif;
 
+//--------------------
+
+// * Back Directory *
+
+// Moves back one directory
+
+//--------------------
+
+?>
 
 <div class="btn-nav">
 
@@ -29,11 +58,15 @@
 
 </div>
 
-<!--<div class="pagi">
+<?php
+//--------------------
 
-<?php echo pagiNum($gallery->page, $gallery->pageCount()); ?>
+// * Next Page *
 
-</div>-->
+// Moves to next page in album
+
+//--------------------
+?>
 
 <div class="btn-nav">
 
@@ -41,6 +74,17 @@
 
 </div>
 
+<?php
+
+//--------------------
+
+// * Back Page *
+
+// Moves back a page in the album
+
+//--------------------
+
+?>
 
 <div class="btn-nav back">
 

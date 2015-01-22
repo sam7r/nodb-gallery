@@ -121,12 +121,13 @@ Author URI: http://www.sjroberton.co.uk
 }
 
 .folder {
-	display: inline-block;
+	display: block;
 	position: relative;
+	line-height: 0;
 	background: $s2c;
 	color: $p2c;
-	height: 100%;
-	width: 100%;
+	padding-top: 50%;
+	padding-bottom: 50%;
 	text-align: center;
 }
 

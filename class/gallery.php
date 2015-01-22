@@ -1,34 +1,21 @@
 <?php
 
+//========================================
+
+// ** NoDb Gallery **
+
+//========================================
+
+// Name: NoDb Gallery
+// Repo: http://gitaddress---
+// Description: Gallery from folders on website
+// Version: 1.0
+// Author: Sam Roberton
+// Author URI: http://www.sjroberton.co.uk
 
 //---------------------------------------
-
-
-// ** NoDb Gallery ** \\
-
-
-//---------------------------------------
-
-
-/*
-Name: NoDb Gallery
-Repo: http://gitaddress---
-Description: Gallery from folders on website
-Version: 1.0
-Author: Sam Roberton
-Author URI: http://www.sjroberton.co.uk
-*/
-
-
-//---------------------------------------
-
-
-
 
 class Gallery {
-
-
-
 
 	// Directory of gallery/album
 	public $dir;
@@ -36,11 +23,8 @@ class Gallery {
 	// Unchanging root
 	protected $root;
 
-	// Total count of images (includes folders)
-	public $countImages = 0;
-
-	// Count of directories within album
-	public $countDirs = 0;
+	// Total count of images & folders
+	public $count = 0;
 
 	// Limit of items shown per page
 	public $limit = 8;
@@ -50,9 +34,6 @@ class Gallery {
 
 	// Array combining images/folders
 	public $album = array();
-
-	// Name of current album
-	public $albumName;
 
 	// Holds valid directories
 	public $validDirs = array();
@@ -76,8 +57,6 @@ class Gallery {
 	public $thumbPfx;
 
 
-
-
 	function __construct($dir) {
 
 		$this->dir = $dir;
@@ -92,12 +71,9 @@ class Gallery {
 
 	}
 
-
-
-
 	//--------------------
 
-	// ** isRoot() **
+	// * isRoot() *
 
 	// Method to determine if user is in root folder
 
@@ -111,12 +87,9 @@ class Gallery {
 
 	}
 
-
-
-
 	//--------------------
 
-	// ** scanDirs() **
+	// * scanDirs() *
 
 	// Recursively scans given directory and stores into returned array
 
@@ -132,12 +105,9 @@ class Gallery {
 
 	}
 
-
-
-
 	//--------------------
 
-	// ** validDirs() **
+	// * validDirs() *
 
 	// Builds array of folder names for input validation whilst using GET.
 
@@ -157,12 +127,9 @@ class Gallery {
 
 	}
 
-
-
-
 	//--------------------
 
-	// ** isValidDir() **
+	// * isValidDir() *
 
 	// Method to check if selected album is a valid directory
 
@@ -182,12 +149,9 @@ class Gallery {
 
 	}
 
-
-
-
 	//--------------------
 
-	// ** getFolders() **
+	// * getFolders() *
 
 	// Returns array of folders for directory navigation
 
@@ -223,12 +187,9 @@ class Gallery {
 
 	}
 
-
-
-
 	//--------------------
 
-	// ** getAlbumName() **
+	// * getAlbumName() *
 
 	// Gets album name from the address.
 
@@ -246,18 +207,14 @@ class Gallery {
 
 	}
 
-
-
-
 	//--------------------
 
-	// ** setAlbum() **
+	// * setAlbum() *
 
 	// This method takes each file/folder from the specified directory
 	// and re-indexes them into the array that will be served.
 
-	// The folders are sorted and shifted to begining of the array for
-	// easier navigation.
+	// The folders are sorted and shifted to begining of the array.
 
 	//--------------------
 
@@ -279,9 +236,7 @@ class Gallery {
 
 						$folders[] = $image;
 
-						$this->countDirs++;
-
-						$this->countImages++;
+						$this->count++;
 
 					}
 
@@ -289,7 +244,7 @@ class Gallery {
 
 					array_push($this->album, $image);
 
-					$this->countImages++;
+					$this->count++;
 
 				}
 
@@ -311,12 +266,9 @@ class Gallery {
 
 	}
 
-
-
-
 	//--------------------
 
-	// ** pageCount() **
+	// * pageCount() *
 
 	// Method to return number of pages needed for album.
 
@@ -324,21 +276,17 @@ class Gallery {
 
 	public function pageCount() {
 
-		$this->pages = ceil($this->countImages / $this->limit) - 1;
+		$this->pages = ceil($this->count / $this->limit) - 1;
 
 		return $this->pages;
 
 	}
 
-
-
-
 	//--------------------
 
-	// ** getPage() **
+	// * getPage() *
 
-	// Fallback method to resolve page to index of album if too far above
-	// or below.
+	// Fallback method to resolve page to index of album
 
 	//--------------------
 
@@ -358,12 +306,9 @@ class Gallery {
 
 	}
 
-
-
-
 	//--------------------
 
-	// ** setLimit() **
+	// * setLimit() *
 
 	// Method to define image/folder starting and finishing numbers.
 	// Used to refernce indexed array and serve correct image/folders.
@@ -378,12 +323,9 @@ class Gallery {
 
 	}
 
-
-
-
 	//--------------------
 
-	// ** getAlbum() **
+	// * getAlbum() *
 
 	// Primary method to return array with selected folders/images.
 	// Used to refernce indexed array and serve correct image/folders.

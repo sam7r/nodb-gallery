@@ -2,8 +2,21 @@
 
 ini_set('display_errors', '1');
 
-// Sets up Gallery class (defines options)
-// Adds functions for navigation of gallery
+//========================================
+
+// NoDb Gallery
+
+// For setup and configuration of the gallery
+// --> inc/gallery-config.php
+
+// To edit HTML of Gallery
+// --> inc/gallery.php
+
+// To edit HTML of navigation
+// --> inc/gallery-nav.php
+
+//========================================
+
 include "inc/gallery-config.php";
 
 ?>
@@ -36,7 +49,6 @@ include "inc/gallery-config.php";
 
 		<div class="wrap">
 
-
 			<!-- Gallery -->
 
 			<main class="col2-3 col-1m gallery">
@@ -45,7 +57,6 @@ include "inc/gallery-config.php";
 
 			</main>
 
-			
 			<!-- Gallery nav -->
 
 			<div class="col1-3 col-1m gallery-nav">
@@ -54,16 +65,12 @@ include "inc/gallery-config.php";
 
 			</div>
 
-
 		</div>
 
 	</section>
 
-
 	<footer class="sec foot b3">
 
-
 	</footer>
-
 
 </body>

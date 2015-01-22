@@ -1,13 +1,22 @@
 <?php
 
+//========================================
+
+// ** NodB Gallery Config **
+
+// Most properties come predefined, but below
+// are a few examples of what can be
+// modified
+
+//========================================
+
 include "class/gallery.php"; // Gallery class
 
 //--------------------
 
-// object setup
+// * object setup *
 
 //--------------------
-
 
 $dir = 'images/folio/';
 
@@ -17,13 +26,11 @@ $gallery->limit = 8; // (default: 8)
 
 $gallery->showAlbums = true; // (default: true) show albums within gallery
 
-
 //--------------------
 
-// contoller code
+// * contoller code *
 
 //--------------------
-
 
 if(isset($_GET['p'])) {
 
@@ -32,6 +39,7 @@ if(isset($_GET['p'])) {
 } else {
 
 	$gallery->page = 0;
+
 }
 
 
@@ -45,27 +53,25 @@ if(isset($_GET['a'])) {
 
 }
 
+//--------------------
+
+// * Builds array of images/dirs *
 
 //--------------------
 
-// Builds array of images/dirs
-
-//--------------------
-
-//if($gallery->isValidDir()) {
+if($gallery->isValidDir() || !isset($album)) {
 
 	$gallery->setAlbum();
 
-//}
+}
 
 //--------------------
 
-// Navigation links for Gallery
+// * Navigation links for Gallery *
 
 //--------------------
 
 include "class/gallery-nav.php";
-
 
 
 ?>

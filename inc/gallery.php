@@ -1,13 +1,15 @@
 <?php
 
+//========================================
 
-if(!isset($album) || $gallery->isValidDir()) {
+// ** NoDb Gallery Output **
 
-	if(isset($album)) {
+// Include this file in your html to loop through
+// the selected album
 
-		$name = $gallery->getAlbumName($album);
+//========================================
 
-	}
+if($gallery->isValidDir() || !isset($album)) {
 
 	foreach($gallery->getAlbum() as $image) {
 
@@ -29,10 +31,7 @@ if(!isset($album) || $gallery->isValidDir()) {
 
 			//--------------------
 
-			// ** Album sub directories **
-
-			// HTML output for folders - change to display image or
-			// folder icon with album name etc...
+			// * Album sub directories *
 
 			//--------------------
 
@@ -47,7 +46,6 @@ if(!isset($album) || $gallery->isValidDir()) {
 
 			<?php
 
-			//--------------------
 
 		} else {
 
@@ -57,10 +55,7 @@ if(!isset($album) || $gallery->isValidDir()) {
 
 			//--------------------
 
-			// ** Album Images **
-
-			// HTML output for image, the image thumb is used as a placeholder
-			// this example uses lightbox to open the full sized image onClick.
+			// * Album Images *
 
 			//--------------------
 
@@ -76,9 +71,8 @@ if(!isset($album) || $gallery->isValidDir()) {
 
 			</div>
 
-			<?php
 
-			//--------------------
+			<?php
 
 		}
 

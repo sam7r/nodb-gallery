@@ -718,12 +718,13 @@ h3, .h3 {
   padding-top: 30px; }
 
 .folder {
-  display: inline-block;
+  display: block;
   position: relative;
+  line-height: 0;
   background: #258ab4;
   color: #fff;
-  height: 100%;
-  width: 100%;
+  padding-top: 50%;
+  padding-bottom: 50%;
   text-align: center; }
 
 .gallery-menu {

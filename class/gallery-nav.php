@@ -1,11 +1,19 @@
 <?php
 
+//========================================
+
+// ** NoDb Gallery Pagination & Button Functions **
+
+// !!!! Make into seperate class that extends Gallery !!!!
+// ---> Gallery_nav()
+
+//========================================
+
 //--------------------
 
-// buttons & pagination
+// * Back a directory *
 
 //--------------------
-
 
 function backDir() {
 
@@ -43,8 +51,11 @@ function backDir() {
 
 }
 
+//--------------------
 
+// * Pagination *
 
+//--------------------
 
 function pagiNum($page, $pageCount) {
 
@@ -89,8 +100,11 @@ function pagiNum($page, $pageCount) {
 
 }
 
+//--------------------
 
+// * Back a page in album *
 
+//--------------------
 
 function backBtn($page) {
 
@@ -126,11 +140,14 @@ function backBtn($page) {
 
 }
 
+//--------------------
 
+// * Next page in album *
 
+//--------------------
 
 function nextBtn($page, $pageCount) {
-	//$gallery->countImages > $gallery->maxImages
+
 	if($page <= $pageCount) {
 
 		if(($page + 1) <= $pageCount) {
