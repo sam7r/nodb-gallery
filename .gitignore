@@ -1,4 +1,5 @@
 .sass-cache
+sass/
 _notes/
 .DS_Store
 config.codekit
