@@ -7,7 +7,7 @@
 //========================================
 
 // Name: NoDb Gallery
-// Repo: http://gitaddress---
+// Repo: https://github.com/sam7r/nodb-gallery
 // Description: Gallery from folders on website
 // Version: 1.0
 // Author: Sam Roberton
