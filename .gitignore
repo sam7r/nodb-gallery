@@ -1,5 +1,6 @@
 .sass-cache
-sass/
-_notes/
+sass
+_notes
 .DS_Store
 config.codekit
+vendor

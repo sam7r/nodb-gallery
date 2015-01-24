@@ -1,0 +1,9 @@
+{
+    "require-dev": {
+        "squizlabs/php_codesniffer": "~2.2"
+    },
+    "autoload": {
+        "psr-0": {"NodbGallery": "src/"}
+    }
+
+}
