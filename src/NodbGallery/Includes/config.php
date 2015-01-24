@@ -10,7 +10,10 @@
 
 //========================================
 
-include "class/gallery.php"; // Gallery class
+require '../vendor/autoload.php'; // composer autoloader
+require '../src/NodbGallery/Gallery/nav.php'; // Navigation functions
+
+use NodbGallery\Gallery\Gallery;
 
 //--------------------
 
@@ -32,24 +35,21 @@ $gallery->showAlbums = true; // (default: true) show albums within gallery
 
 //--------------------
 
-if(isset($_GET['p'])) {
-
-	$gallery->page = $_GET['p'];
+if (isset($_GET['p'])) {
+    $gallery->page = $_GET['p'];
 
 } else {
-
-	$gallery->page = 0;
+    $gallery->page = 0;
 
 }
 
 
-if(isset($_GET['a'])) {
+if (isset($_GET['a'])) {
+    // variable used throughout controller code
+    $album = $_GET['a'];
 
-	// variable used throughout controller code
-	$album = $_GET['a'];
-
-	// Establishes correct directory
-	$gallery->dir = $gallery->dir . '' . urldecode($album) . '/';
+    // Establishes correct directory
+    $gallery->dir = $gallery->dir . '' . urldecode($album) . '/';
 
 }
 
@@ -59,19 +59,7 @@ if(isset($_GET['a'])) {
 
 //--------------------
 
-if($gallery->isValidDir() || !isset($album)) {
-
-	$gallery->setAlbum();
+if ($gallery->isValidDir() || !isset($album)) {
+    $gallery->setAlbum();
 
 }
-
-//--------------------
-
-// * Navigation links for Gallery *
-
-//--------------------
-
-include "class/gallery-nav.php";
-
-
-?>
