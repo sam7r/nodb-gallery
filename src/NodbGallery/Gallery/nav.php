@@ -2,81 +2,105 @@
 
 //========================================
 
-// ** NoDb Gallery Pagination & Button Functions **
-
-// !!!! Make into seperate class that extends Gallery !!!!
-// ---> Gallery_nav()
+// ** NoDb Gallery link functions **
 
 //========================================
 
-//--------------------
-
-// * Back a directory *
-
-//--------------------
-
 namespace NodbGallery\Gallery;
-
-
 
 class Nav extends Gallery
 {
 
+    //--------------------
 
-    public $albumUri;
+    // * getFolders() *
 
-    public $location;
+    // Returns array of folders for directory navigation
 
+    //--------------------
 
-    public function __contruct() {
+    public function getAlbums()
+    {
 
-        $this->location = $_SERVER['PHP_SELF'];
-        $this->albumUri = urlencode($this->albumUri);
+        $directories = $this->scanDirs($this->root);
+        $ignoredDirs = [$this->thumbDir];
+        $folders = array();
+
+        foreach ($directories as $directory) {
+            foreach ($ignoredDirs as $ignore) {
+                if ($ignore != $directory) {
+                    $album = $this->getAlbumName($directory);
+                    $albumDir = str_replace($this->root, '', $directory);
+                    $folders[$album] = urlencode($albumDir);
+                }
+            }
+        }
+        return $folders;
 
     }
 
+    //--------------------
+
+    // * backDir() *
+
+    // returns link for navigation back 1 level
+
+    //--------------------
 
     public function backDir()
     {
 
-        $back  = explode('/', $this->albumUri);
-        $backCount = count($back) - 1;
-        $backLink = $this->location;
+        if ($this->albumUri) {
+            $back  = explode('/', $this->albumUri);
+            $backCount = count($back) - 1;
+            $backLink = $this->location;
 
-        if ($backCount > 0) {
-            for ($i = 0; $i < $backCount; $i++) {
-                if ($i == ($backCount - 1)) {
-                    $link = $back[$i];
+            if ($backCount > 0) {
+                for ($i = 0; $i < $backCount; $i++) {
+                    if ($i == ($backCount - 1)) {
+                        $link = $back[$i];
 
-                } else {
-                    $link = $back[$i] .'/';
+                    } else {
+                        $link = $back[$i] .'/';
+                    }
                 }
+                $backLink = '?a=' . urlencode($link);
             }
-            $backLink = '?a=' . urlencode($link);
+            return $backLink;
+
+        } else {
+            return '#';
         }
-        return $backLink;
 
     }
 
     //--------------------
 
-    // * Back a page in album *
+    // * backPage() *
+
+    // Returns link to navigate back 1 page within an album
 
     //--------------------
 
-    function backPage()
+    public function backPage()
     {
 
-        if ($this->page >= 0) {
-            if ($this->page == 0 && !isset($this->albumUri)) {
+        if ($this->page > 0) {
+            if (($this->page - 1) <= 0) {
                 $backBtn = $this->location;
+                if ($this->albumUri) {
+                    $backBtn .= '?';
+                }
 
             } else {
                 $backBtn = $this->location . "?p=" . ($this->page - 1);
+                if ($this->albumUri) {
+                    $backBtn .= '&';
+                }
             }
 
             if ($this->albumUri) {
-                $backBtn .= '&a=' . $this->album;
+                $backBtn .= 'a=' . $this->albumUri;
             }
 
         } else {
@@ -89,24 +113,26 @@ class Nav extends Gallery
 
     //--------------------
 
-    // * Next page in album *
+    // * nextPage() *
+
+    // Returns link to navigate forward 1 page within an album
 
     //--------------------
 
-    function nextPage()
+    public function nextPage()
     {
 
-        //if ($this->page <= $this->pageCount()) {
-            if (($this->page + 1) != $this->pages) {
-                $nextBtn = $this->location . "?p=" . ($this->page + 1);
-                if ($this->albumUri) {
-                    $nextBtn .= '&a=' . $this->albumUri;
-                }
-            } else {
-                $nextBtn = '#';
+        if (($this->page + 1) <= $this->pages) {
+            $nextBtn = $this->location . "?p=" . ($this->page + 1);
+            if ($this->albumUri) {
+                $nextBtn .= '&a=' . $this->albumUri;
             }
-            return $nextBtn;
-        //}
+
+        } else {
+            $nextBtn = '#';
+        }
+
+        return $nextBtn;
 
     }
 
@@ -114,13 +140,15 @@ class Nav extends Gallery
 
     // * Pagination *
 
+    // Returns array of links for page selection of current album
+
     //--------------------
-/*
-    function pagiNum()
+
+    public function pagiNum()
     {
 
-        if ($this->pageCount() >= 0) {
-            for ($i = 0; $i <= $this->pageCount(); $i++) {
+        if ($this->pages >= 0) {
+            for ($i = 0; $i <= $this->pages; $i++) {
                 $pagiLink = $this->location . '?p=' . $i;
 
                 if ($this->albumUri) {
@@ -128,10 +156,8 @@ class Nav extends Gallery
                 }
 
                 $pagiNum = ($i + 1);
-
                 $pagination[$pagiNum] = $pagiLink;
             }
-
 
             foreach ($pagination as $i => $link) {
                 $link = '<a href="' . $link . '"';
@@ -144,14 +170,5 @@ class Nav extends Gallery
                 echo $link;
             }
         }
-
     }
-*/
-
-
-
-
-
-
-
 }

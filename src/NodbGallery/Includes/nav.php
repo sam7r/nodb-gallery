@@ -10,16 +10,16 @@
 
 // * getFolders() *
 
-// Returns a list of all folders in Gallery for navigation
+// Returns a list of all folders in gallery for navigation
 
 //--------------------
 
-if ($gallery->getFolders()) {
+if ($nav->getAlbums()) {
 ?>
 	<div class="gallery-menu">
 		<ul>
 			<li><a href="<?php echo $_SERVER['PHP_SELF']; ?>">Gallery</a></li>
-			<?php foreach ($gallery->getFolders() as $name => $dir) {
+			<?php foreach ($nav->getAlbums() as $name => $dir) {
 ?>
 				<li>
 					<a href="<?php echo $_SERVER['PHP_SELF'] . "?a=" . $dir; ?>">

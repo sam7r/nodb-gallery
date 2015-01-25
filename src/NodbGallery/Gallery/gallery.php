@@ -29,7 +29,7 @@ class Gallery
     protected $root;
 
     // Total count of images & folders
-    public $count = 0;
+    protected $count = 0;
 
     // Limit of items shown per page
     public $limit = 8;
@@ -38,12 +38,10 @@ class Gallery
     public $showAlbums = true;
 
     // Array combining images/folders
-    public $album = array();
-
-    public $albumUri;
+    protected $album = array();
 
     // Holds valid directories
-    public $validDirs = array();
+    protected $validDirs = array();
 
     // Total number of pages in album
     public $pages;
@@ -52,16 +50,22 @@ class Gallery
     public $page;
 
     // Starting item of album
-    public $start;
+    protected $start;
 
     // Last item of album
-    public $end;
+    protected $end;
 
     // Directory of thumbnail folder
     public $thumbDir;
 
     // Thumbnail prefix
     public $thumbPfx;
+
+    // local address
+    protected $location;
+
+    // album uri
+    public $albumUri;
 
 
     public function __construct($dir)
@@ -71,19 +75,17 @@ class Gallery
 
         $this->root = $dir;
 
-        $this->thumbDir = $this->dir . 'thumbs';
-
-        $this->thumbPfx = 's-';
+        $this->location = $_SERVER['PHP_SELF'];
 
         $this->validDirs();
 
-        if(isset($_GET['p'])) {
+        if (isset($_GET['p'])) {
             $this->page = $_GET['p'];
-
-        } else {
-            $this->page = 0;
         }
 
+        if (isset($_GET['a'])) {
+            $this->albumUri = $_GET['a'];
+        }
 
     }
 
@@ -112,7 +114,7 @@ class Gallery
 
     //--------------------
 
-    private function scanDirs($dir)
+    protected function scanDirs($dir)
     {
 
         $directories = new \RecursiveIteratorIterator(
@@ -166,42 +168,6 @@ class Gallery
             }
 
         }
-
-    }
-
-    //--------------------
-
-    // * getFolders() *
-
-    // Returns array of folders for directory navigation
-
-    //--------------------
-
-    public function getFolders()
-    {
-
-        $directories = $this->scanDirs($this->root);
-
-        $ignoredDirs = [$this->thumbDir];
-
-        $folders = array();
-
-        foreach ($directories as $directory) {
-            foreach ($ignoredDirs as $ignore) {
-                if ($ignore != $directory) {
-                    $album = $this->getAlbumName($directory);
-
-                    $albumDir = str_replace($this->root, '', $directory);
-
-                    $folders[$album] = urlencode($albumDir);
-
-                }
-
-            }
-
-        }
-
-        return $folders;
 
     }
 
@@ -328,7 +294,7 @@ class Gallery
 
     //--------------------
 
-    private function setLimit()
+    protected function setLimit()
     {
 
         $this->start = $this->limit * $this->page;

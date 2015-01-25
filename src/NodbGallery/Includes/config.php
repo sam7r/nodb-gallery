@@ -20,15 +20,15 @@ DEFINE('GALLERY_DIR', 'images/folio/');
 
 //--------------------
 
-// * object setup *
+// * Gallery setup *
 
 //--------------------
 
 $gallery = new Gallery(GALLERY_DIR);
-
-$gallery->limit = 6; // (default: 8)
-
-$gallery->showAlbums = true; // (default: true) show albums within gallery
+$gallery->limit = 8; // (default: 8)
+$gallery->showAlbums = false; // (default: true) show albums within gallery
+$gallery->thumbDir = $gallery->dir . 'thumbs'; // thumbnail directory
+$gallery->thumbPfx = 's-'; // thumbnail prefix
 
 //--------------------
 
@@ -39,11 +39,12 @@ $gallery->showAlbums = true; // (default: true) show albums within gallery
 if (isset($_GET['a'])) {
     // variable used throughout controller code
     $album = $_GET['a'];
+
+    // defines property for nav links
     $gallery->albumUri = $_GET['a'];
 
-    // Establishes correct directory
-    $gallery->dir = $gallery->dir . '' . urldecode($album) . '/';
-
+    // establishes correct directory
+    $gallery->dir = $gallery->dir . '' . urldecode($gallery->albumUri) . '/';
 }
 
 //--------------------
@@ -54,9 +55,13 @@ if (isset($_GET['a'])) {
 
 if ($gallery->isValidDir() || !isset($album)) {
     $gallery->setAlbum();
-
 }
 
-$nav = new Nav(GALLERY_DIR);
+//--------------------
 
-echo $nav->albumUri;
+// * Nav setup *
+
+//--------------------
+
+$nav = new Nav(GALLERY_DIR);
+$nav->pages = $gallery->pageCount();
