@@ -40,6 +40,8 @@ class Gallery
     // Array combining images/folders
     public $album = array();
 
+    public $albumUri;
+
     // Holds valid directories
     public $validDirs = array();
 
@@ -74,6 +76,14 @@ class Gallery
         $this->thumbPfx = 's-';
 
         $this->validDirs();
+
+        if(isset($_GET['p'])) {
+            $this->page = $_GET['p'];
+
+        } else {
+            $this->page = 0;
+        }
+
 
     }
 
@@ -294,7 +304,7 @@ class Gallery
 
     //--------------------
 
-    private function getPage()
+    protected function getPage()
     {
 
         $this->pageCount();

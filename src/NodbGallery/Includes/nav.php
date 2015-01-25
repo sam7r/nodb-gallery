@@ -46,7 +46,7 @@ if ($gallery->getFolders()) {
 
 <div class="btn-nav">
 
-	<a href="<?php echo backBtn($gallery->page); ?>" <?php if ($gallery->page == 0) {
+	<a href="<?php echo $nav->backPage(); ?>" <?php if ($gallery->page == 0) {
 ?> class="disabled" <?php
 } ?>><</a>
 
@@ -64,7 +64,7 @@ if ($gallery->getFolders()) {
 
 <div class="btn-nav">
 
-	<a href="<?php echo nextBtn($gallery->page, $gallery->pageCount()); ?>"
+	<a href="<?php echo $nav->nextPage(); ?>"
 	<?php if ($gallery->page == $gallery->pages) {
     ?> class="disabled"
 	<?php
@@ -86,7 +86,7 @@ if ($gallery->getFolders()) {
 
 <div class="btn-nav back">
 
-	<a href="<?php echo backDir(); ?>" <?php if ($gallery->isRoot()) {
+	<a href="<?php echo $nav->backDir(); ?>" <?php if ($gallery->isRoot()) {
     ?> class="disabled" <?php
 } ?>>Back</a>
 

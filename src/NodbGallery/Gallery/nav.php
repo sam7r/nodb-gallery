@@ -15,15 +15,33 @@
 
 //--------------------
 
-function backDir()
+namespace NodbGallery\Gallery;
+
+
+
+class Nav extends Gallery
 {
 
-    if (isset($_GET['a'])) {
-        $back  = explode('/', urldecode($_GET['a']));
 
+    public $albumUri;
+
+    public $location;
+
+
+    public function __contruct() {
+
+        $this->location = $_SERVER['PHP_SELF'];
+        $this->albumUri = urlencode($this->albumUri);
+
+    }
+
+
+    public function backDir()
+    {
+
+        $back  = explode('/', $this->albumUri);
         $backCount = count($back) - 1;
-
-        $backLink = $_SERVER['PHP_SELF'];
+        $backLink = $this->location;
 
         if ($backCount > 0) {
             for ($i = 0; $i < $backCount; $i++) {
@@ -32,126 +50,108 @@ function backDir()
 
                 } else {
                     $link = $back[$i] .'/';
-
                 }
-
             }
-
             $backLink = '?a=' . urlencode($link);
-
         }
-
         return $backLink;
 
     }
 
-}
+    //--------------------
 
-//--------------------
+    // * Back a page in album *
 
-// * Pagination *
+    //--------------------
 
-//--------------------
+    function backPage()
+    {
 
-function pagiNum($page, $pageCount)
-{
-
-    if ($pageCount >= 0) {
-        for ($i = 0; $i <= $pageCount; $i++) {
-            $pagiLink = $_SERVER['PHP_SELF'] . '?p=' . $i;
-
-            if (isset($_GET['a'])) {
-                $pagiLink .= '&a=' . $_GET['a'];
-
-            }
-
-            $pagiNum = ($i + 1);
-
-            $pagination[$pagiNum] = $pagiLink;
-        }
-
-
-        foreach ($pagination as $i => $link) {
-            $link = '<a href="' . $link . '"';
-
-            if ($page == ($i - 1)) {
-                $link .= 'class="selected"';
-
-            }
-
-            $link .= '>' . $i . '</a>';
-
-            //$pagi[] =
-            echo $link;
-
-            //return $pagi;
-
-        }
-
-    }
-
-}
-
-//--------------------
-
-// * Back a page in album *
-
-//--------------------
-
-function backBtn($page)
-{
-
-    if (isset($page) && $page >= 0) {
-        if (($page - 1) >= 0) {
-            if (($page - 1) == 0 && !isset($_GET['a'])) {
-                $backBtn = $_SERVER['PHP_SELF'];
+        if ($this->page >= 0) {
+            if ($this->page == 0 && !isset($this->albumUri)) {
+                $backBtn = $this->location;
 
             } else {
-                $backBtn = $_SERVER['PHP_SELF'] . "?p=" . ($page - 1);
-
+                $backBtn = $this->location . "?p=" . ($this->page - 1);
             }
 
-            if (isset($_GET['a'])) {
-                $backBtn .= '&a=' . $_GET['a'];
-
+            if ($this->albumUri) {
+                $backBtn .= '&a=' . $this->album;
             }
 
         } else {
             $backBtn = '#';
-
         }
 
         return $backBtn;
 
     }
 
-}
+    //--------------------
 
-//--------------------
+    // * Next page in album *
 
-// * Next page in album *
+    //--------------------
 
-//--------------------
+    function nextPage()
+    {
 
-function nextBtn($page, $pageCount)
-{
-
-    if ($page <= $pageCount) {
-        if (($page + 1) <= $pageCount) {
-            $nextBtn = $_SERVER['PHP_SELF'] . "?p=" . ($page + 1);
-
-            if (isset($_GET['a'])) {
-                $nextBtn .= '&a=' . $_GET['a'];
-
+        //if ($this->page <= $this->pageCount()) {
+            if (($this->page + 1) != $this->pages) {
+                $nextBtn = $this->location . "?p=" . ($this->page + 1);
+                if ($this->albumUri) {
+                    $nextBtn .= '&a=' . $this->albumUri;
+                }
+            } else {
+                $nextBtn = '#';
             }
-
-        } else {
-            $nextBtn = '#';
-
-        }
-
-        return $nextBtn;
+            return $nextBtn;
+        //}
 
     }
+
+    //--------------------
+
+    // * Pagination *
+
+    //--------------------
+/*
+    function pagiNum()
+    {
+
+        if ($this->pageCount() >= 0) {
+            for ($i = 0; $i <= $this->pageCount(); $i++) {
+                $pagiLink = $this->location . '?p=' . $i;
+
+                if ($this->albumUri) {
+                    $pagiLink .= '&a=' . $this->albumUri;
+                }
+
+                $pagiNum = ($i + 1);
+
+                $pagination[$pagiNum] = $pagiLink;
+            }
+
+
+            foreach ($pagination as $i => $link) {
+                $link = '<a href="' . $link . '"';
+
+                if ($page == ($i - 1)) {
+                    $link .= 'class="selected"';
+                }
+
+                $link .= '>' . $i . '</a>';
+                echo $link;
+            }
+        }
+
+    }
+*/
+
+
+
+
+
+
 
 }
