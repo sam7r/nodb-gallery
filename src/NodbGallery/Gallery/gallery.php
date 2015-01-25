@@ -67,16 +67,16 @@ class Gallery
     // album uri
     public $albumUri;
 
+    // ignored directories
+    public $ignoredDirs = array();
+
 
     public function __construct($dir)
     {
 
         $this->dir = $dir;
-
         $this->root = $dir;
-
         $this->location = $_SERVER['PHP_SELF'];
-
         $this->validDirs();
 
         if (isset($_GET['p'])) {
@@ -118,9 +118,7 @@ class Gallery
     {
 
         $directories = new \RecursiveIteratorIterator(
-            new \ParentIterator(
-                new \RecursiveDirectoryIterator($dir)
-            ),
+            new \ParentIterator(new \RecursiveDirectoryIterator($dir)),
             RecursiveIteratorIterator::SELF_FIRST
         );
 
@@ -143,9 +141,7 @@ class Gallery
 
         foreach ($directories as $directory) {
             $directory = $directory . '/';
-
             array_push($this->validDirs, $directory);
-
         }
 
     }
@@ -164,9 +160,7 @@ class Gallery
         foreach ($this->validDirs as $valid) {
             if ($this->dir == $valid) {
                 return true;
-
             }
-
         }
 
     }
@@ -183,11 +177,8 @@ class Gallery
     {
 
         $name = explode('/', $album);
-
         $c = count($name) - 1;
-
         $album = $name[$c];
-
         return $album;
 
     }
@@ -207,9 +198,7 @@ class Gallery
     {
 
         $images = scandir($this->dir);
-
         $ignoredFiles = array(".","..","/","_notes", ".DS_Store", "thumbs");
-
         $folders = array();
 
         foreach ($images as $image) {
@@ -217,20 +206,14 @@ class Gallery
                 if (is_dir($this->dir . $image)) {
                     if ($this->showAlbums) {
                         $folders[] = $image;
-
                         $this->count++;
-
                     }
 
                 } else {
                     array_push($this->album, $image);
-
                     $this->count++;
-
                 }
-
             }
-
         }
 
         if ($folders) {
@@ -240,7 +223,6 @@ class Gallery
                 array_unshift($this->album, $folder);
 
             }
-
         }
 
     }
@@ -257,7 +239,6 @@ class Gallery
     {
 
         $this->pages = ceil($this->count / $this->limit) - 1;
-
         return $this->pages;
 
     }
@@ -298,7 +279,6 @@ class Gallery
     {
 
         $this->start = $this->limit * $this->page;
-
         $this->end = $this->start + $this->limit;
 
     }
@@ -316,17 +296,13 @@ class Gallery
     {
 
         $this->getPage();
-
         $this->setLimit();
-
         $array = array();
 
         for ($i = $this->start; $i < $this->end; $i++) {
             if (isset($this->album[$i])) {
                 array_push($array, $this->album[$i]);
-
             }
-
         }
 
         return $array;

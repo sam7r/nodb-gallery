@@ -23,7 +23,7 @@ class Nav extends Gallery
     {
 
         $directories = $this->scanDirs($this->root);
-        $ignoredDirs = [$this->thumbDir];
+        $ignoredDirs = array('images/folio/thumbs');
         $folders = array();
 
         foreach ($directories as $directory) {
@@ -138,13 +138,13 @@ class Nav extends Gallery
 
     //--------------------
 
-    // * Pagination *
+    // * pagination() *
 
     // Returns array of links for page selection of current album
 
     //--------------------
 
-    public function pagiNum()
+    public function pagination()
     {
 
         if ($this->pages >= 0) {
@@ -162,7 +162,7 @@ class Nav extends Gallery
             foreach ($pagination as $i => $link) {
                 $link = '<a href="' . $link . '"';
 
-                if ($page == ($i - 1)) {
+                if ($this->page == ($i - 1)) {
                     $link .= 'class="selected"';
                 }
 

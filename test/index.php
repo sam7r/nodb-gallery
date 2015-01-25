@@ -19,7 +19,7 @@ DEFINE('INC_ROOT', '../src/NodbGallery/Includes/');
 
 //========================================
 
-require INC_ROOT . "config.php";
+require INC_ROOT . "include.php";
 
 ?>
 
